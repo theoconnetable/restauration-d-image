@@ -14,7 +14,7 @@ def anisotropic_diffusion(image, niter=1, kappa=50, gamma=0.1, step=(1., 1.), op
 
     Return the diffused image.
     """
-    # Convert input image to float32
+    # Convertion image en float32
     image = np.array(image, dtype=np.float32)
 
     # Define conduction gradients functions
@@ -23,18 +23,17 @@ def anisotropic_diffusion(image, niter=1, kappa=50, gamma=0.1, step=(1., 1.), op
     elif option == 2:
         diff_op = lambda x: 1./(1.+(x/kappa)**2)
 
-    # Initialize output image
+    # Initialisation image de sortie
     diff = np.zeros_like(image)
 
-    # Initialize some internal variables
+    # Initialisation des variables
     deltaS = np.zeros_like(image)
     deltaE = np.zeros_like(image)
     gS = np.zeros_like(image)
     gE = np.zeros_like(image)
 
-    # Iterate
     for ii in range(niter):
-        # Calculate the gradients
+        # Calcul des gradients
         gS[:-1,:] = np.diff(diff, axis=0)
         gE[:,:-1] = np.diff(diff, axis=1)
 
@@ -46,7 +45,7 @@ def anisotropic_diffusion(image, niter=1, kappa=50, gamma=0.1, step=(1., 1.), op
             deltaS[:-1,:] = diff_op(gS[:-1,:])**2
             deltaE[:,:-1] = diff_op(gE[:,:-1])**2
 
-        # Update the image
+        # Mise à jour de l'image 
         diff[1:,:] -= deltaS[1:,:]*step[0]
         diff[:-1,:] += deltaS[:-1,:]*step[0]
         diff[:,1:] -= deltaE[:,1:]*step[1]
@@ -58,13 +57,13 @@ def anisotropic_diffusion(image, niter=1, kappa=50, gamma=0.1, step=(1., 1.), op
 
 from scipy import misc
 
-# Load image
+# Charge l'image
 image = misc.ascent()
 
-# Apply anisotropic diffusion
+# Applique diffusion
 diff = anisotropic_diffusion(image, niter=50, kappa=10)
 
-# Display result
+# Affiche res
 import matplotlib.pyplot as plt
 fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, figsize=(8, 4), sharex=True, sharey=True)
 
@@ -72,6 +71,6 @@ ax0.imshow(image, cmap=plt.cm.gray)
 ax0.set_title('Original')
 ax0.axis('off')
 ax1.imshow(diff, cmap=plt.cm.gray)
-ax1.set_title('Diffused')
+ax1.set_title('Perona Malik')
 ax1.axis('off')
 plt.show()
