@@ -23,7 +23,7 @@ def gradient_y(img):
             gy[y,x] = (img[y+1,x] - img[y-1,x]) / 2
     return gy
 
-def test(img):
+def divergence(img):
     h, w = img.shape[:2]
     gx = gradient_x(img)
     gy = gradient_y(img)
@@ -33,7 +33,6 @@ def test(img):
             part1 = g(abs(gx[y,x])) * gx[y,x] - g(abs(gx[y,x])) * gx[y,x-1]
             part2 = g(abs(gx[y,x])) * gx[y,x] - g(abs(gx[y,x])) * gx[y-1,x]
             div[y,x] = part1 + part2
-            ##div[y,x] = g(abs(gx[y,x])) * gx[y,x] * ( x + 1/2) - g(abs(gx[y,x])) * gx[y,x] * ( x - 1/2)+ g(abs(gy[y,x])) * gy[y,x] * (y + 1/2) - g(abs(gy[y,x])) * gy[y,x] * (y - 1/2)    
     return div ## +1 pas+1/2 ni -1
 ##Pas à rajouter les 1/2 car val dejà dans tab g(x,y) et g(x-1,y)
 
@@ -43,12 +42,9 @@ def anisotropic_diffusion(img, dt, num_iter):
     """Application de la diffusion anisotropique sur l'image."""
     u = img.astype(np.float32)
     print("IMAGE: " + str(u))
-    ##print("TEST: " + str(u[1,0]))
     for i in range(num_iter):
-        ##div = divergence(u)
-        div = test(u)
+        div = divergence(u)
         u = u + dt * div
-    print("res: " + str(u))
     return np.clip(u, 0, 255).astype(np.uint8)
 
 
