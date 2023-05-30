@@ -1,2 +1,0 @@
-repartir des bases du tp2
-remplacer diffusion isotrope par anistrope (euler ? laplacien ?)
