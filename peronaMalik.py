@@ -49,7 +49,7 @@ def anisotropic_diffusion(img, dt, num_iter):
 
 
 img = cv2.imread('mandrill-g0_5.png',cv2.IMREAD_GRAYSCALE)
-res = anisotropic_diffusion(img,0.25,90)
+res = anisotropic_diffusion(img,0.25,180)
 
 scale_percent = 200 # percent of original size
 width = int(img.shape[1] * scale_percent / 100)
