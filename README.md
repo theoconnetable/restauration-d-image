@@ -4,3 +4,4 @@
 ### g(|∇x|) * ∇x(x+1/2,y) - g(|∇x|) * ∇x(x-1/2,y) + g(|∇y|) * ∇y(x,y+1/2) - g(|∇y|) * ∇y(x,y-1/2)
 ### Nous avons d'abord commencé la diffusion sur des images en niveau de gris (fichier peronaMalik.py), puis nous avons effectué une version prenant compte des images en couleurs (fichier peronaMalikCouleurs.py)
 ## Afin d'avoir des résultat significatif, nous avons effectué une diffusion sur 90 ittérations avec un dt de 0.25 (résultats dans le dossier "resultats" => fichiers PeronaMalik.jpg et PeronaMalikCouleur1.jpg ).
+## Nous avons également effectué un test en doublant le nombre d'itérations (180), ce qui nous donne l'image PeronaMalik2
